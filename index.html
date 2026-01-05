@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nexus Cloud Shield: System Security Dashboard</title>
+    <style>
+      :root {
+        --bg: #0f1724;
+        --card: #0b1220;
+        --muted: #94a3b8;
+        --accent: #00d1b2;
+        --danger: #ff6767;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, Segoe UI, system-ui, Arial, sans-serif;
+        background: linear-gradient(180deg, #071022 0%, #081826 60%);
+        color: #e6eef6;
+        -webkit-font-smoothing: antialiased;
+        padding: 24px;
+      }
+      .site-header {
+        max-width: 1200px;
+        margin: 0 auto 18px;
+        padding: 8px 12px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .logo {
+        width: 48px;
+        height: 48px;
+      }
+      .brand h1 {
+        font-size: 1.1rem;
+        margin: 0;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .cards {
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+      .card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.01)
+        );
+        padding: 16px;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 14px 28px rgba(2, 6, 23, 0.7);
+      }
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .card-header h3 {
+        margin: 0;
+        font-size: 1rem;
+      }
+      .status {
+        font-size: 0.9rem;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .status.green {
+        color: var(--accent);
+      }
+      .status.red {
+        color: var(--danger);
+      }
+
+      .desc {
+        color: var(--muted);
+        margin: 8px 0;
+        font-size: 0.92rem;
+      }
+      .metric {
+        font-size: 1rem;
+        margin: 10px 0;
+      }
+      .indicators {
+        list-style: none;
+        padding: 0;
+        margin: 6px 0 0;
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .indicators li {
+        font-size: 0.88rem;
+        color: var(--muted);
+        display: flex;
+        gap: 6px;
+        align-items: center;
+      }
+      .bullet {
+        font-weight: bold;
+      }
+      .bullet.green {
+        color: var(--accent);
+      }
+      .bullet.yellow {
+        color: #f2c94c;
+      }
+      .bullet.red {
+        color: var(--danger);
+      }
+
+      canvas {
+        display: block;
+        margin-top: 12px;
+        border-radius: 8px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          transparent
+        );
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 12px;
+        }
+        .brand h1 {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">
+        <!-- Inline SVG logo -->
+        <svg
+          class="logo"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 100 100"
+          aria-hidden="true"
+        >
+          <defs>
+            <linearGradient id="g" x1="0" x2="1">
+              <stop offset="0" stop-color="#00d1b2" />
+              <stop offset="1" stop-color="#00a6ff" />
+            </linearGradient>
+          </defs>
+          <rect width="100" height="100" rx="18" fill="#071428" />
+          <circle cx="50" cy="40" r="24" fill="url(#g)" opacity="0.95" />
+          <text
+            x="50"
+            y="56"
+            font-family="Segoe UI, Arial"
+            font-size="34"
+            fill="#071428"
+            font-weight="700"
+            text-anchor="middle"
+          >
+            N
+          </text>
+        </svg>
+        <h1>Nexus Cloud Shield: System Security Dashboard</h1>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="cards">
+        <article class="card">
+          <div class="card-header">
+            <h3>🔁 Recovery</h3>
+            <div class="status green">🟢 Active</div>
+          </div>
+          <p class="desc">
+            System recovery & disaster recovery procedures, boot logs and repair
+            tools.
+          </p>
+          <div class="metric">Recovery Readiness: <strong>92%</strong></div>
+          <ul class="indicators">
+            <li>Startup Repair: <span class="bullet green">🟢</span></li>
+            <li>System Image: <span class="bullet green">🟢</span></li>
+            <li>Emergency Tools: <span class="bullet yellow">🟡</span></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3>☁️ Cloud Computing</h3>
+            <div class="status">🟡 Degraded</div>
+          </div>
+          <p class="desc">
+            Network & storage status, online apps and support infrastructure
+            metrics.
+          </p>
+          <div class="metric">Uptime (24h): <strong>99.2%</strong></div>
+          <ul class="indicators">
+            <li>Network Status: <span class="bullet green">🟢</span></li>
+            <li>Storage: <span class="bullet yellow">🟡</span></li>
+            <li>Config Tools: <span class="bullet green">🟢</span></li>
+          </ul>
+          <canvas
+            id="chart-cloud"
+            width="300"
+            height="120"
+            aria-label="Cloud storage chart"
+          ></canvas>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3>🛡️ Security Fundamentals</h3>
+            <div class="status red">🔴 Attention</div>
+          </div>
+          <p class="desc">
+            Business continuity, access control, app security protocols and risk
+            tracker.
+          </p>
+          <div class="metric">Risk Score: <strong>68</strong></div>
+          <ul class="indicators">
+            <li>Access Control: <span class="bullet yellow">🟡</span></li>
+            <li>Network Security: <span class="bullet green">🟢</span></li>
+            <li>Policy Compliance: <span class="bullet red">🔴</span></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3>💻 Programming & Development</h3>
+            <div class="status green">🟢 On Track</div>
+          </div>
+          <p class="desc">
+            Software pipeline, tools inventory, mobile & IoT connection
+            statuses.
+          </p>
+          <div class="metric">Active Projects: <strong>7</strong></div>
+          <ul class="indicators">
+            <li>Game Dev: <span class="bullet green">🟢</span></li>
+            <li>Mobile Apps: <span class="bullet yellow">🟡</span></li>
+            <li>IoT Devices: <span class="bullet green">🟢</span></li>
+          </ul>
+          <canvas
+            id="chart-dev"
+            width="300"
+            height="120"
+            aria-label="Development pipeline chart"
+          ></canvas>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3>🎮 Game Pipeline</h3>
+            <div class="status">🟡 Staged</div>
+          </div>
+          <p class="desc">
+            Track game project stages from design to deployment and cloud
+            integration.
+          </p>
+          <div class="metric">In Pipeline: <strong>3</strong></div>
+          <ul class="indicators">
+            <li>Design: <span class="bullet green">🟢</span></li>
+            <li>Alpha: <span class="bullet yellow">🟡</span></li>
+            <li>Beta: <span class="bullet yellow">🟡</span></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h3>🔎 Operational Status</h3>
+            <div class="status green">🟢 Stable</div>
+          </div>
+          <p class="desc">
+            Live monitoring of services, logs, and continuity checks.
+          </p>
+          <div class="metric">Alerts (24h): <strong>4</strong></div>
+          <ul class="indicators">
+            <li>Services: <span class="bullet green">🟢</span></li>
+            <li>Backups: <span class="bullet green">🟢</span></li>
+            <li>Latency: <span class="bullet yellow">🟡</span></li>
+          </ul>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      function drawBarChart(id, data, labels) {
+        const c = document.getElementById(id);
+        if (!c) return;
+        const ctx = c.getContext("2d");
+        const w = c.width,
+          h = c.height;
+        ctx.clearRect(0, 0, w, h);
+        const max = Math.max(...data);
+        const gap = 12;
+        const barW = (w - gap * (data.length + 1)) / data.length;
+        data.forEach((v, i) => {
+          const x = gap + i * (barW + gap);
+          const bh = (v / max) * (h - 24);
+          ctx.fillStyle = "#00d1b2";
+          ctx.fillRect(x, h - 8 - bh, barW, bh);
+          ctx.fillStyle = "#94a3b8";
+          ctx.font = "11px sans-serif";
+          ctx.textAlign = "center";
+          ctx.fillText(labels[i], x + barW / 2, h - 2);
+        });
+      }
+
+      function drawLineChart(id, data, labels) {
+        const c = document.getElementById(id);
+        if (!c) return;
+        const ctx = c.getContext("2d");
+        const w = c.width,
+          h = c.height;
+        ctx.clearRect(0, 0, w, h);
+        const max = Math.max(...data);
+        const padding = 20;
+        const step = (w - padding * 2) / (data.length - 1);
+        ctx.strokeStyle = "#00d1b2";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        data.forEach((v, i) => {
+          const x = padding + i * step;
+          const y = h - padding - (v / max) * (h - padding * 2);
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        });
+        ctx.stroke();
+        ctx.fillStyle = "#00d1b2";
+        data.forEach((v, i) => {
+          const x = padding + i * step;
+          const y = h - padding - (v / max) * (h - padding * 2);
+          ctx.beginPath();
+          ctx.arc(x, y, 3, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        ctx.fillStyle = "#94a3b8";
+        ctx.font = "11px sans-serif";
+        ctx.textAlign = "center";
+        labels.forEach((lab, i) => {
+          ctx.fillText(lab, padding + i * step, h - 4);
+        });
+      }
+
+      window.addEventListener("load", () => {
+        drawBarChart(
+          "chart-cloud",
+          [70, 85, 60, 90],
+          ["DB", "FS", "S3", "Blk"]
+        );
+        drawLineChart(
+          "chart-dev",
+          [10, 30, 45, 70, 90],
+          ["Plan", "Design", "Dev", "QA", "Ship"]
+        );
+      });
+    </script>
+  </body>
+</html>
